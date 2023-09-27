@@ -24,7 +24,7 @@ public class MoneyTransferTests {
     }
 
     @Test
-    void transferFromFirstToSecond() throws  InterruptedException{
+    void transferFromFirstToSecond() {
         var firstCardInfo = getCardFirstId(); // получаем экземпляр класса CardInfo и добавляем информацию по карте
         var secondCardInfo = getCardSecondId();
         var firstCardBalance = dashboardPage.getCardBalance(firstCardInfo); // получаем баланс карты
@@ -36,14 +36,13 @@ public class MoneyTransferTests {
         dashboardPage = transferPage.makeValidTransfer(valueOf(amount), firstCardInfo); // указываем с какой карты совершаем операцию
         var actualBalanceFirstCard = dashboardPage.getCardBalance(firstCardInfo); // фактический результат после перевода
         var actualBalanceSecondCard = dashboardPage.getCardBalance(secondCardInfo);
-        Thread.sleep(5000);
 
         assertEquals(expectedBalanceFirstCard, actualBalanceFirstCard);
         assertEquals(expectedBalanceSecondCard, actualBalanceSecondCard);
     }
 
     @Test
-    void transferFromSecondToFirst() throws InterruptedException {
+    void transferFromSecondToFirst() {
         var firstCardInfo = getCardFirstId();
         var secondCardInfo = getCardSecondId();
         var firstCardBalance = dashboardPage.getCardBalance(firstCardInfo);
@@ -55,7 +54,6 @@ public class MoneyTransferTests {
         dashboardPage = transferPage.makeValidTransfer(valueOf(amount), secondCardInfo);
         var actualBalanceFirstCard = dashboardPage.getCardBalance(firstCardInfo);
         var actualBalanceSecondCard = dashboardPage.getCardBalance(secondCardInfo);
-        Thread.sleep(5000);
 
         assertEquals(expectedBalanceFirstCard, actualBalanceFirstCard);
         assertEquals(expectedBalanceSecondCard, actualBalanceSecondCard);
@@ -63,7 +61,7 @@ public class MoneyTransferTests {
     }
 
     @Test
-    void transferInValid() throws InterruptedException{
+    void transferInValid() {
         var firstCardInfo = getCardFirstId();
         var secondCardInfo = getCardSecondId();
         var firstCardBalance = dashboardPage.getCardBalance(firstCardInfo);
@@ -76,7 +74,6 @@ public class MoneyTransferTests {
         transferPage.findErrorMessage("Выполнена попытка перевода суммы, превышающей остаток на карте списания");
         var actualBalanceFirstCard = dashboardPage.getCardBalance(firstCardInfo);
         var actualBalanceSecondCard = dashboardPage.getCardBalance(secondCardInfo);
-        Thread.sleep(5000);
 
         assertEquals(expectedBalanceFirstCard, actualBalanceFirstCard);
         assertEquals(expectedBalanceSecondCard, actualBalanceSecondCard);
@@ -84,7 +81,7 @@ public class MoneyTransferTests {
     }
 
     @Test
-    void transferMoneyFromACardWithAnIncorrectNumber() throws InterruptedException {
+    void transferMoneyFromACardWithAnIncorrectNumber() {
         var firstCardInfo = getCardFirstId();
         var secondCardInfo = getCardSecondId();
         var firstBalanceCard = dashboardPage.getCardBalance(firstCardInfo);
@@ -97,7 +94,6 @@ public class MoneyTransferTests {
         transferPage.findErrorMessage("Ошибка Ошибка! Произошла ошибка");
         var actualBalanceFirstCard = dashboardPage.getCardBalance(firstCardInfo);
         var actualBalanceSecondCard = dashboardPage.getCardBalance(secondCardInfo);
-        Thread.sleep(5000);
 
         assertEquals(expectedBalanceFirstCard, actualBalanceFirstCard);
         assertEquals(expectedBalanceSecondCard, actualBalanceSecondCard);
